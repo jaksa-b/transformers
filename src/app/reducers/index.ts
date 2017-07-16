@@ -15,6 +15,7 @@ export interface State {
 const reducers = {
 	transformers: fromTransformers.reducer,
 	selectedTransformer: fromTransformers.selectedTransformer,
+	vehicleTypes: fromTransformers.vehicleTypes,
 	layout: fromLayout.reducer,
 };
 

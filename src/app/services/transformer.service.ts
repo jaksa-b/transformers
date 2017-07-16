@@ -5,13 +5,15 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { Transformer } from './../models/transformer';
+import { VehicleTypes } from './../models/vehicleTypes';
 import { State } from './../reducers/transformers';
 import { BASE_URL } from './../../environments/environment';
 import {
 	GET_TRANSFORMERS,
 	ADD_TRANSFORMER,
 	UPDATE_TRANSFORMER,
-	REMOVE_TRANSFORMER
+	REMOVE_TRANSFORMER,
+	GET_VEHICLE_TYPES
 } from "../actions/transformers";
 
 
@@ -21,15 +23,24 @@ const HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
 export class TransformerService {
 
 	transformers: Observable<Array<Transformer>>;
+	vehicleTypes: Observable<Array<VehicleTypes>>;
 
 	constructor(private http: Http, private store: Store<State>) {
 		this.transformers = store.select('transformers');
+		this.vehicleTypes = store.select('vehicleTypes');
 	}
 
 	getTransformers() {
 		return this.http.get(`${BASE_URL}/transformers`)
 			.map(res => res.json())
 			.map(payload => ({ type: GET_TRANSFORMERS, payload }))
+			.subscribe(action => this.store.dispatch(action));
+	}
+
+	getVehicleTypes() {
+		return this.http.get(`${BASE_URL}/vehicleTypes`)
+			.map(res => res.json())
+			.map(payload => ({ type: GET_VEHICLE_TYPES, payload }))
 			.subscribe(action => this.store.dispatch(action));
 	}
 

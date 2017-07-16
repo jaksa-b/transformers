@@ -37,6 +37,7 @@ export class AppComponent {
 		private transformerService: TransformerService) {
 		this.showSidenav$ = this.store.select(fromRoot.getShowSidenav);
 		transformerService.getTransformers();
+		transformerService.getVehicleTypes();
 	}
 
 	closeSidenav() {

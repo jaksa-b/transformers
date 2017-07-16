@@ -7,26 +7,35 @@ export interface State {
     transformers: Transformer[]
 }
 
-export function reducer(state = [], action: Action) {
-    switch (action.type) {
+export function reducer(state = [], { type, payload }) {
+    switch (type) {
         case transformers.GET_TRANSFORMERS:
-            return action.payload;
+            return payload;
         case transformers.ADD_TRANSFORMER:
-            return [...state, action.payload];
+            return [...state, payload];
         case transformers.UPDATE_TRANSFORMER:
             return state.map(item => {
-                return item.id === action.payload.id ? Object.assign({}, item, action.payload) : item;
+                return item.id === payload.id ? Object.assign({}, item, payload) : item;
             });
         case transformers.REMOVE_TRANSFORMER:
-            return state.filter(transformer => transformer.id !== action.payload.id);
+            return state.filter(transformer => transformer.id !== payload.id);
         default:
             return state;
     }
 }
 
-export const selectedTransformer = (state: {}, { type, payload }) => {
+export function selectedTransformer (state: {}, { type, payload }) {
     switch (type) {
         case transformers.SELECT_TRANSFORMER:
+            return payload;
+        default:
+            return state;
+    }
+};
+
+export function vehicleTypes (state: {}, { type, payload }) {
+    switch (type) {
+        case transformers.GET_VEHICLE_TYPES:
             return payload;
         default:
             return state;

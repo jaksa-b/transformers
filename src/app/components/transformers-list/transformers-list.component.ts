@@ -33,22 +33,6 @@ export class TransformersListComponent implements OnInit {
 
 	ngOnInit() { }
 
-	add() {
-		const transformer = {
-			id: 2,
-			name: "Optimus Prime",
-			vehicleGroup: "Land",
-			vehicleType: "Truck",
-			vehicleModel: "Western Star 5700",
-			gear: [
-				"sword",
-				"shield"
-			],
-			status: "OK"
-		}
-		this.transformerService.addTransformer(transformer);
-	}
-
 	selectTransformer( transformer: Transformer) {
 		this.store.dispatch({ type: SELECT_TRANSFORMER, payload: transformer})
 	}

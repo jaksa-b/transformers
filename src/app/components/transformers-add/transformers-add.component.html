@@ -1,3 +1,27 @@
-<p>
-  transformers-add works!
-</p>
+<md-card>
+	<form [formGroup]="form" novalidate>
+		<h2>Add new transformer</h2>
+		<md-input-container>
+			<input type="text" mdInput name="name" placeholder="Name*" formControlName="name">
+		</md-input-container>
+		<md-select placeholder="Group*" name="vehicleGroup" formControlName="vehicleGroup">
+			<md-option *ngFor="let vehicle of vehicleTypes | async" [value]="vehicleGroup">
+				{{ vehicle.group }}
+			</md-option>
+		</md-select>
+		<md-select placeholder="Type*">
+			<md-option *ngFor="let vehicle of vehicleTypes | async" [value]="vehicle.group">
+				{{ vehicle.group }}
+			</md-option>
+		</md-select>
+		<md-select placeholder="Model*">
+			<md-option *ngFor="let vehicle of vehicleTypes | async" [value]="vehicle.group">
+				{{ vehicle.group }}
+			</md-option>
+		</md-select>
+		<md-input-container>
+			<input type="text" mdInput name="name" placeholder="Name*" formControlName="name">
+		</md-input-container>
+		<button md-button color="primary" (click)="add()">Add</button>
+	</form>
+</md-card>

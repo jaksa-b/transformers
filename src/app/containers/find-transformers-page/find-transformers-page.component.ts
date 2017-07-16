@@ -6,7 +6,7 @@ import { State } from './../../reducers/transformers';
 import {
 	GET_TRANSFORMERS,
 	ADD_TRANSFORMER,
-	EDIT_TRANSFORMER,
+	UPDATE_TRANSFORMER,
 	REMOVE_TRANSFORMER
 } from "../../actions/transformers";
 

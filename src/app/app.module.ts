@@ -26,6 +26,7 @@ import { routing } from './app.routing';
 import { reducer } from './reducers';
 
 import { TransformerService } from "./services";
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
 	declarations: [
@@ -39,6 +40,7 @@ import { TransformerService } from "./services";
 		NavItemComponent,
 		SidenavComponent,
 		ToolbarComponent,
+		ConfirmDialogComponent,
 	],
 	imports: [
 		BrowserModule,
