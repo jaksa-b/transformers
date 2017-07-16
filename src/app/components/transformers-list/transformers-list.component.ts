@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { Store } from '@ngrx/store';
 import { Transformer } from './../../models/transformer';
+import { TransformerService } from "./../../services";
 import { State } from './../../reducers/transformers';
 import {
-	GET_TRANSFORMERS,
 	ADD_TRANSFORMER,
 	EDIT_TRANSFORMER,
 	REMOVE_TRANSFORMER
@@ -17,26 +17,32 @@ import {
 })
 export class TransformersListComponent implements OnInit {
 
-	public transformers;
+	transformers: Observable<Array<Transformer>>;
 	private id = 0;
 
 	constructor(
-		private store: Store<State>
+		private store: Store<State>,
+		private transformerService: TransformerService
 	) {
-		store.select('transformers').subscribe(transformers => {
-			this.transformers = transformers;
-		})
+		this.transformers = transformerService.transformers;
 	}
 
 	ngOnInit() {}
 
 	add() {
-		this.store.dispatch({
-			type: ADD_TRANSFORMER,
-			payload: {
-				id: ++this.id
-			}
-		});
+		const transformer = {
+			id: 2,
+			name: "Optimus Prime",
+			vehicleGroup: "Land",
+			vehicleType: "Truck",
+			vehicleModel: "Western Star 5700",
+			gear: [
+				"sword",
+				"shield"
+			],
+			status: "OK"
+		}
+		this.transformerService.addTransformer(transformer);
 	}
 
 	remove(id) {

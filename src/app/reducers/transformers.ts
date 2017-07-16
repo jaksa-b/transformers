@@ -10,7 +10,7 @@ export interface State {
 export function reducer(state = [], action: Action) {
     switch (action.type) {
         case transformers.GET_TRANSFORMERS:
-            return state;
+            return action.payload;
         case transformers.ADD_TRANSFORMER:
             return [
                 ...state,

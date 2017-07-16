@@ -1,5 +1,5 @@
 export interface Transformer {
-    id: string,
+    id: number,
     name: string,
     vehicleGroup: string,
     vehicleType: string,

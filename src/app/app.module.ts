@@ -15,11 +15,17 @@ import { TransformersListComponent } from './components/transformers-list/transf
 import { TransformersViewComponent } from './components/transformers-view/transformers-view.component';
 import { TransformersAddComponent } from './components/transformers-add/transformers-add.component';
 import { TransformersEditComponent } from './components/transformers-edit/transformers-edit.component';
+import { LayoutComponent } from './components/layout';
+import { NavItemComponent } from './components/nav-item';
+import { SidenavComponent } from './components/sidenav';
+import { ToolbarComponent } from './components/toolbar';
 
 import { FindTransformersPageComponent } from './containers/find-transformers-page/find-transformers-page.component';
 
 import { routing } from './app.routing';
 import { reducer } from './reducers';
+
+import { TransformerService } from "./services";
 
 @NgModule({
 	declarations: [
@@ -29,6 +35,10 @@ import { reducer } from './reducers';
 		TransformersAddComponent,
 		TransformersEditComponent,
 		FindTransformersPageComponent,
+		LayoutComponent,
+		NavItemComponent,
+		SidenavComponent,
+		ToolbarComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -43,7 +53,7 @@ import { reducer } from './reducers';
 		MaterialModule,
 		routing,
 	],
-	providers: [],
+	providers: [TransformerService],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
