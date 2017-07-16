@@ -5,16 +5,30 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { MdButtonModule, MdCheckboxModule } from '@angular/material';
-import 'hammerjs';
+
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { TransformersModule } from './transformers/transformers.module';
+import { TransformersListComponent } from './components/transformers-list/transformers-list.component';
+import { TransformersViewComponent } from './components/transformers-view/transformers-view.component';
+import { TransformersAddComponent } from './components/transformers-add/transformers-add.component';
+import { TransformersEditComponent } from './components/transformers-edit/transformers-edit.component';
+
+import { FindTransformersPageComponent } from './containers/find-transformers-page/find-transformers-page.component';
+
 import { routing } from './app.routing';
+import { transformersReducer } from './reducers';
 
 @NgModule({
 	declarations: [
-		AppComponent
+		AppComponent,
+		TransformersListComponent,
+		TransformersViewComponent,
+		TransformersAddComponent,
+		TransformersEditComponent,
+		FindTransformersPageComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -22,9 +36,10 @@ import { routing } from './app.routing';
 		FormsModule,
 		HttpModule,
 		RouterModule,
-		TransformersModule,
 		BrowserAnimationsModule,
-		[MdButtonModule, MdCheckboxModule],
+		StoreModule.provideStore({ transformers: transformersReducer }),
+		StoreDevtoolsModule.instrumentOnlyWithExtension(),
+		MaterialModule,
 		routing,
 	],
 	providers: [],

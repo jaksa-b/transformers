@@ -1,0 +1,12 @@
+<p>
+	transformers-list works!
+</p>
+
+
+<button (click)="add()">Add</button>
+<md-list>
+	<md-list-item *ngFor="let transformer of transformers">
+		{{transformer.id}}
+		<button (click)="remove(transformer.id)">Remove</button>
+	</md-list-item>
+</md-list>
