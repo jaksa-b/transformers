@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
-export const OPEN_SIDENAV = 'Open Sidenav';
-export const CLOSE_SIDENAV = 'Close Sidenav';
+export const OPEN_SIDENAV = 'OPEN_SIDENAV';
+export const CLOSE_SIDENAV = 'CLOSE_SIDENAV';
 
 
 export class OpenSidenavAction implements Action {

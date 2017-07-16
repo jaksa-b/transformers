@@ -1,13 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Observable } from "rxjs/Observable";
+import { DataSource } from '@angular/cdk';
 import { Store } from '@ngrx/store';
 import { Transformer } from './../../models/transformer';
 import { TransformerService } from "./../../services";
 import { State } from './../../reducers/transformers';
+import { ConfirmDialogComponent } from './../confirm-dialog/confirm-dialog.component';
 import {
 	ADD_TRANSFORMER,
-	EDIT_TRANSFORMER,
-	REMOVE_TRANSFORMER
+	UPDATE_TRANSFORMER,
+	REMOVE_TRANSFORMER,
+	SEARCH_TRANSFORMER,
+	SELECT_TRANSFORMER
 } from "../../actions/transformers";
 
 @Component({
@@ -18,16 +22,16 @@ import {
 export class TransformersListComponent implements OnInit {
 
 	transformers: Observable<Array<Transformer>>;
-	private id = 0;
+	query = '';
 
 	constructor(
 		private store: Store<State>,
-		private transformerService: TransformerService
+		private transformerService: TransformerService,
 	) {
 		this.transformers = transformerService.transformers;
 	}
 
-	ngOnInit() {}
+	ngOnInit() { }
 
 	add() {
 		const transformer = {
@@ -45,10 +49,11 @@ export class TransformersListComponent implements OnInit {
 		this.transformerService.addTransformer(transformer);
 	}
 
-	remove(id) {
-		this.store.dispatch({
-			type: REMOVE_TRANSFORMER,
-			payload: id
-		});
+	selectTransformer( transformer: Transformer) {
+		this.store.dispatch({ type: SELECT_TRANSFORMER, payload: transformer})
+	}
+
+	search(query: string) {
+		console.log(query)
 	}
 }

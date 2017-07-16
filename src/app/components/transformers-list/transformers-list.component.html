@@ -1,12 +1,28 @@
-<p>
-	transformers-list works!
-</p>
-
-
-<button (click)="add()">Add</button>
-<md-list>
-	<md-list-item *ngFor="let transformer of transformers | async">
-		{{transformer.id}}
-		<button (click)="remove(transformer.id)">Remove</button>
-	</md-list-item>
-</md-list>
+<md-card>
+	<md-card-title>Find transformers</md-card-title>
+	<md-card-content>
+		<md-input-container>
+			<input mdInput placeholder="Search for transformer" [value]="query" (keyup)="search($event.target.value)">
+		</md-input-container>
+		<md-spinner [class.show]="searching"></md-spinner>
+	</md-card-content>
+	<button (click)="add()">Add</button>
+</md-card>
+<md-card>
+	<md-list>
+		<md-list-item *ngFor="let transformer of transformers | async" routerLink="/{{transformer.id}}" (click)="selectTransformer(transformer)">
+			<h3 md-line> {{transformer.name}} </h3>
+			<p md-line>
+				<span> {{transformer.id}} </span>
+				<span> Group: {{transformer.vehicleGroup}} </span>
+				<button md-icon-button [mdMenuTriggerFor]="appMenu">
+				{{transformer.status}}
+			</button>
+			</p>
+			<md-menu #appMenu="mdMenu">
+				<button md-menu-item> Settings </button>
+				<button md-menu-item> Help </button>
+			</md-menu>
+		</md-list-item>
+	</md-list>
+</md-card>

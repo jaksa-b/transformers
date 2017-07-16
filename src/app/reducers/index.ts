@@ -14,6 +14,7 @@ export interface State {
 
 const reducers = {
 	transformers: fromTransformers.reducer,
+	selectedTransformer: fromTransformers.selectedTransformer,
 	layout: fromLayout.reducer,
 };
 

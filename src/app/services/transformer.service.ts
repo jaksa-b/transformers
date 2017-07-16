@@ -10,7 +10,7 @@ import { BASE_URL } from './../../environments/environment';
 import {
 	GET_TRANSFORMERS,
 	ADD_TRANSFORMER,
-	EDIT_TRANSFORMER,
+	UPDATE_TRANSFORMER,
 	REMOVE_TRANSFORMER
 } from "../actions/transformers";
 
@@ -38,6 +38,18 @@ export class TransformerService {
 			.map(res => res.json())
 			.map(payload => ({ type: ADD_TRANSFORMER, payload }))
 			.subscribe(action => this.store.dispatch(action));
+	}
+
+	updateTransformer(transformer: Transformer) {
+		this.http.put(`${BASE_URL}/transformers/${transformer.id}`, JSON.stringify(transformer))
+			.map(res => res.json())
+			.map(payload => ({ type: UPDATE_TRANSFORMER, payload }))
+			.subscribe(action => this.store.dispatch(action));
+	}
+
+	deleteTransformer(transformer: Transformer) {
+		this.http.delete(`${BASE_URL}/transformers/${transformer.id}`)
+			.subscribe(action => this.store.dispatch({ type: REMOVE_TRANSFORMER, payload: transformer }));
 	}
 
 }
