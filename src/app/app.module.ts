@@ -2,7 +2,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
@@ -19,7 +19,7 @@ import { TransformersEditComponent } from './components/transformers-edit/transf
 import { FindTransformersPageComponent } from './containers/find-transformers-page/find-transformers-page.component';
 
 import { routing } from './app.routing';
-import { transformersReducer } from './reducers';
+import { reducer } from './reducers';
 
 @NgModule({
 	declarations: [
@@ -34,10 +34,11 @@ import { transformersReducer } from './reducers';
 		BrowserModule,
 		CommonModule,
 		FormsModule,
+		ReactiveFormsModule,
 		HttpModule,
 		RouterModule,
 		BrowserAnimationsModule,
-		StoreModule.provideStore({ transformers: transformersReducer }),
+		StoreModule.provideStore(reducer),
 		StoreDevtoolsModule.instrumentOnlyWithExtension(),
 		MaterialModule,
 		routing,

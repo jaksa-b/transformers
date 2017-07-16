@@ -1,26 +1,28 @@
+import { createSelector } from 'reselect';
+import { Transformer } from '../models/transformer';
 import { ActionReducer, Action } from '@ngrx/store';
-import { 
-    GET_TRANSFORMERS, 
-    ADD_TRANSFORMER, 
-    EDIT_TRANSFORMER, 
-    REMOVE_TRANSFORMER
- } from "../actions";
+import * as transformers from "../actions/transformers";
 
+export interface State {
+    transformers: Transformer[]
+}
 
-export function transformersReducer ( state = [], action: Action) {
+export function reducer(state = [], action: Action) {
     switch (action.type) {
-        case GET_TRANSFORMERS:
-            return state;    
-        case ADD_TRANSFORMER:
+        case transformers.GET_TRANSFORMERS:
+            return state;
+        case transformers.ADD_TRANSFORMER:
             return [
                 ...state,
                 action.payload
-            ];    
-        case EDIT_TRANSFORMER:
-            return state;       
-        case REMOVE_TRANSFORMER:
-            return state.filter( transformer => transformer.id !== action.payload); ;       
+            ];
+        case transformers.EDIT_TRANSFORMER:
+            return state;
+        case transformers.REMOVE_TRANSFORMER:
+            return state.filter(transformer => transformer.id !== action.payload);;
         default:
             return state;
     }
 }
+
+export const getTransformers = (state) => state.transformers;

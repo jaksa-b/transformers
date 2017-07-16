@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { Store } from '@ngrx/store';
-import { Trensformer } from './../../models/transformer';
+import { Transformer } from './../../models/transformer';
+import { State } from './../../reducers/transformers';
 import {
 	GET_TRANSFORMERS,
 	ADD_TRANSFORMER,
 	EDIT_TRANSFORMER,
 	REMOVE_TRANSFORMER
-} from "../../actions";
+} from "../../actions/transformers";
 
 @Component({
 	selector: 'app-transformers-list',
@@ -19,7 +20,9 @@ export class TransformersListComponent implements OnInit {
 	public transformers;
 	private id = 0;
 
-	constructor(private store: Store<any>) {
+	constructor(
+		private store: Store<State>
+	) {
 		store.select('transformers').subscribe(transformers => {
 			this.transformers = transformers;
 		})
@@ -42,6 +45,4 @@ export class TransformersListComponent implements OnInit {
 			payload: id
 		});
 	}
-
-
 }
