@@ -14,7 +14,25 @@ import { State } from './../../reducers/transformers';
 })
 export class TransformersAddComponent implements OnInit {
 	form: FormGroup;
-	vehicleTypes : Observable<Array<VehicleTypes>>;
+	vehicleTypes: Observable<Array<VehicleTypes>>;
+	groupsFormated = {};
+	typesFormated = {};
+	modelFormated = [];
+	groups = {};
+
+	/*
+	this.groupsFormated =
+		{
+			Air: {
+				Helicopter: [],
+				Plane: []
+			},
+			Land: {
+				Car: [],
+				Truck: []
+			}
+		}
+	*/
 
 	constructor(
 		private store: Store<State>,
@@ -22,6 +40,26 @@ export class TransformersAddComponent implements OnInit {
 		private fb: FormBuilder,
 	) {
 		this.vehicleTypes = transformerService.vehicleTypes;
+		this.vehicleTypes.subscribe(array => {
+			array.map(item => {
+				if (!this.groups[item.group]) {
+					this.groups[item.group] = [];
+				}
+				this.groups[item.group].push(item);
+			})
+		})
+		for (let key in this.groups) {
+			if (!this.groupsFormated[this.groups[key]]) {
+				this.groupsFormated[key] = {};
+			}
+			this.groups[key].map(item => {
+				if (!this.groupsFormated[key][item.type]) {
+					this.groupsFormated[key][item.type] = [];
+				}
+				this.groupsFormated[key][item.type].push(item);
+			})
+		}
+		console.log(this.groupsFormated)
 	}
 
 	ngOnInit() {
@@ -33,6 +71,16 @@ export class TransformersAddComponent implements OnInit {
 			gear: ['', Validators.required],
 			status: ['', Validators.required]
 		})
+	}
+
+	onGroupChange() {
+		console.log(this.form.controls['vehicleGroup'].value)
+		this.typesFormated = this.groupsFormated[this.form.controls['vehicleGroup'].value];
+	}
+
+	onTypeChange() {
+		console.log(this.form.controls['vehicleType'].value)
+		this.modelFormated = this.typesFormated[this.form.controls['vehicleType'].value];
 	}
 
 	add() {

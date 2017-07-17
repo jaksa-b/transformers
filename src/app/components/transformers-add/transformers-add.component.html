@@ -4,19 +4,19 @@
 		<md-input-container>
 			<input type="text" mdInput name="name" placeholder="Name*" formControlName="name">
 		</md-input-container>
-		<md-select placeholder="Group*" name="vehicleGroup" formControlName="vehicleGroup">
-			<md-option *ngFor="let vehicle of vehicleTypes | async" [value]="vehicleGroup">
-				{{ vehicle.group }}
+		<md-select placeholder="Group*" name="vehicleGroup" formControlName="vehicleGroup" (change)="onGroupChange()">
+			<md-option *ngFor="let item of groupsFormated | keys" [value]="item">
+				{{ item }}
 			</md-option>
 		</md-select>
-		<md-select placeholder="Type*">
-			<md-option *ngFor="let vehicle of vehicleTypes | async" [value]="vehicle.group">
-				{{ vehicle.group }}
+		<md-select placeholder="Type*" name="vehicleType" formControlName="vehicleType" (change)="onTypeChange()">
+			<md-option *ngFor="let item of typesFormated | keys" [value]="item">
+				{{ item }}
 			</md-option>
 		</md-select>
-		<md-select placeholder="Model*">
-			<md-option *ngFor="let vehicle of vehicleTypes | async" [value]="vehicle.group">
-				{{ vehicle.group }}
+		<md-select placeholder="Model*" name="vehicleModel" formControlName="vehicleModel">
+			<md-option *ngFor="let item of modelFormated" [value]="item.model">
+				{{ item.model }}
 			</md-option>
 		</md-select>
 		<md-input-container>

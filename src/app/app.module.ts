@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { MaterialModule } from '@angular/material';
+import { MaterialModule, MdSelectModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { TransformersListComponent } from './components/transformers-list/transformers-list.component';
@@ -27,6 +27,7 @@ import { reducer } from './reducers';
 
 import { TransformerService } from "./services";
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { KeysPipe } from './pipes/keys.pipe';
 
 @NgModule({
 	declarations: [
@@ -41,6 +42,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 		SidenavComponent,
 		ToolbarComponent,
 		ConfirmDialogComponent,
+		KeysPipe,
 	],
 	imports: [
 		BrowserModule,
@@ -53,6 +55,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 		StoreModule.provideStore(reducer),
 		StoreDevtoolsModule.instrumentOnlyWithExtension(),
 		MaterialModule,
+		MdSelectModule,
 		routing,
 	],
 	providers: [TransformerService],
