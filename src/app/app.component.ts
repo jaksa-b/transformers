@@ -23,8 +23,8 @@ import * as layout from './actions/layout';
       </bc-sidenav>
       <bc-toolbar (openMenu)="openSidenav()">
         Transformers
-      </bc-toolbar>
-
+			</bc-toolbar>
+			<toaster-container></toaster-container>
       <router-outlet></router-outlet>
     </app-layout>
   `

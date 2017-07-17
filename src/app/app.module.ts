@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MaterialModule, MdSelectModule } from '@angular/material';
+import { ToasterModule } from 'angular2-toaster';
 
 import { AppComponent } from './app.component';
 import { TransformersListComponent } from './components/transformers-list/transformers-list.component';
@@ -52,6 +53,7 @@ import { KeysPipe } from './pipes/keys.pipe';
 		HttpModule,
 		RouterModule,
 		BrowserAnimationsModule,
+		ToasterModule,
 		StoreModule.provideStore(reducer),
 		StoreDevtoolsModule.instrumentOnlyWithExtension(),
 		MaterialModule,

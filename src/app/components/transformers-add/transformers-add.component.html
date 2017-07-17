@@ -19,9 +19,11 @@
 				{{ item.model }}
 			</md-option>
 		</md-select>
-		<md-input-container>
-			<input type="text" mdInput name="name" placeholder="Name*" formControlName="name">
-		</md-input-container>
-		<button md-button color="primary" (click)="add()">Add</button>
+		<md-select placeholder="Model*" name="status" formControlName="status">
+			<md-option *ngFor="let item of statuses" [value]="item">
+				{{ item }}
+			</md-option>
+		</md-select>
+		<button md-raised-button color="primary" (click)="add()" [disabled]="!this.form.valid">Add</button>
 	</form>
 </md-card>

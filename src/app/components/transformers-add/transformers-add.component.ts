@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ToasterService } from 'angular2-toaster';
 import { Store } from '@ngrx/store';
 import { Transformer } from './../../models/transformer';
 import { VehicleTypes } from './../../models/vehicleTypes';
@@ -19,6 +21,7 @@ export class TransformersAddComponent implements OnInit {
 	typesFormated = {};
 	modelFormated = [];
 	groups = {};
+	statuses = ['OK', 'INJURED', 'MIA'];
 
 	/*
 	this.groupsFormated =
@@ -37,7 +40,9 @@ export class TransformersAddComponent implements OnInit {
 	constructor(
 		private store: Store<State>,
 		private transformerService: TransformerService,
+		private router: Router,
 		private fb: FormBuilder,
+		private toasterService: ToasterService,
 	) {
 		this.vehicleTypes = transformerService.vehicleTypes;
 		this.vehicleTypes.subscribe(array => {
@@ -68,24 +73,24 @@ export class TransformersAddComponent implements OnInit {
 			vehicleGroup: ['', Validators.required],
 			vehicleType: ['', Validators.required],
 			vehicleModel: ['', Validators.required],
-			gear: ['', Validators.required],
+			gear: [''],
 			status: ['', Validators.required]
 		})
 	}
 
 	onGroupChange() {
-		console.log(this.form.controls['vehicleGroup'].value)
 		this.typesFormated = this.groupsFormated[this.form.controls['vehicleGroup'].value];
 	}
 
 	onTypeChange() {
-		console.log(this.form.controls['vehicleType'].value)
 		this.modelFormated = this.typesFormated[this.form.controls['vehicleType'].value];
 	}
 
 	add() {
 		console.log(this.form.value)
-		//this.transformerService.addTransformer(transformer);
+		this.toasterService.pop('success', 'Transformer added');
+		this.transformerService.addTransformer(this.form.value);
+		this.router.navigate(['/']);
 	}
 
 }

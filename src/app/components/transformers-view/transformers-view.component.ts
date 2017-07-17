@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from "rxjs/Observable";
 import { MdDialog } from '@angular/material';
+import { ToasterService } from 'angular2-toaster';
 import { Transformer } from "./../../models/transformer";
 import { TransformerService } from "./../../services";
 import { State } from './../../reducers/transformers';
@@ -23,6 +24,7 @@ export class TransformersViewComponent implements OnInit, OnDestroy {
 		private route: ActivatedRoute,
 		private store: Store<State>,
 		private transformerService: TransformerService,
+		private toasterService: ToasterService,
 		public dialog: MdDialog
 	) {
 		store.select('selectedTransformer').subscribe(transformer =>
@@ -45,6 +47,8 @@ export class TransformersViewComponent implements OnInit, OnDestroy {
 		}); */
 		this.transformerService.deleteTransformer(transformer);
 		this.router.navigate(['/']);
+		this.toasterService.pop('success', 'Transformer deleted');
+
 	}
 
 }
