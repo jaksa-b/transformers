@@ -80,10 +80,14 @@ export class TransformersAddComponent implements OnInit {
 
 	onGroupChange() {
 		this.typesFormated = this.groupsFormated[this.form.controls['vehicleGroup'].value];
+		this.form.controls['vehicleType'].setValue('');
+		this.form.controls['vehicleModel'].setValue('');
+		this.modelFormated = []
 	}
 
 	onTypeChange() {
 		this.modelFormated = this.typesFormated[this.form.controls['vehicleType'].value];
+		this.form.controls['vehicleModel'].setValue('');
 	}
 
 	add() {
