@@ -1,27 +1,27 @@
 <md-card>
 	<md-card-header>
-		<h2>{{ selectedTransformer.name }}</h2>
+		<h2>{{ transformer.name }}</h2>
 	</md-card-header>
 	<md-card-content>
 		<p>
-			<b>Group</b> {{ selectedTransformer.vehicleGroup }}
+			<b>Group</b> {{ transformer.vehicleGroup }}
 		</p>
 		<p>
-			<b>Type</b> {{ selectedTransformer.vehicleType }}
+			<b>Type</b> {{ transformer.vehicleType }}
 		</p>
 		<p>
-			<b>Model</b> {{ selectedTransformer.vehicleModel }}
+			<b>Model</b> {{ transformer.vehicleModel }}
 		</p>
 		<p>
-			<b>Status</b> {{ selectedTransformer.status }}
+			<b>Status</b> {{ transformer.status }}
 		</p>
 		
 	</md-card-content>
 	<md-card-actions>
-		<button md-button (click)="edit(selectedTransformer)">
+		<button md-button routerLink="/{{transformer.id}}/edit">
 			<md-icon>edit</md-icon> Edit
 		</button>
-		<button md-button (click)="remove(selectedTransformer)">
+		<button md-button (click)="remove(transformer)">
 			<md-icon>delete</md-icon> Delete
 		</button>
 	</md-card-actions>

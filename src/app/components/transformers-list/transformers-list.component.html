@@ -2,7 +2,7 @@
 	<md-card-title>Find transformers</md-card-title>
 	<md-card-content>
 		<md-input-container>
-			<input mdInput placeholder="Search for transformer" [value]="query" (keyup)="search($event.target.value)">
+			<input mdInput placeholder="Search for transformer" [formControl]="term">
 		</md-input-container>
 		<md-spinner [class.show]="searching"></md-spinner>
 	</md-card-content>
@@ -11,17 +11,9 @@
 	<md-list>
 		<md-list-item *ngFor="let transformer of transformers | async" routerLink="/{{transformer.id}}" (click)="selectTransformer(transformer)">
 			<h3 md-line> {{transformer.name}} </h3>
-			<p md-line>
-				<span> {{transformer.id}} </span>
-				<span> Group: {{transformer.vehicleGroup}} </span>
-				<button md-icon-button [mdMenuTriggerFor]="appMenu">
-				{{transformer.status}}
-			</button>
-			</p>
-			<md-menu #appMenu="mdMenu">
-				<button md-menu-item> Settings </button>
-				<button md-menu-item> Help </button>
-			</md-menu>
+			<p md-line><b>Id:</b> {{transformer.id}}</p>
+			<p md-line><b>Group:</b> {{transformer.vehicleGroup}}</p>
+			<p md-line><b>Status:</b> {{transformer.status}}</p>
 		</md-list-item>
 	</md-list>
 </md-card>

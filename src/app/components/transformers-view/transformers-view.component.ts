@@ -17,7 +17,7 @@ export class TransformersViewComponent implements OnInit, OnDestroy {
 
 	id: number;
 	sub: any;
-	selectedTransformer: {};
+	transformer: {};
 
 	constructor(
 		private router: Router,
@@ -27,8 +27,8 @@ export class TransformersViewComponent implements OnInit, OnDestroy {
 		private toasterService: ToasterService,
 		public dialog: MdDialog
 	) {
-		store.select('selectedTransformer').subscribe(transformer =>
-			this.selectedTransformer = transformer
+		store.select('selectedTransformer').subscribe(selectedTransformer =>
+			this.transformer = selectedTransformer
 		);
 	}
 

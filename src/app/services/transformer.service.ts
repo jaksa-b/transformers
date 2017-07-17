@@ -1,7 +1,7 @@
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { Transformer } from './../models/transformer';
@@ -17,10 +17,9 @@ import {
 } from "../actions/transformers";
 
 
-const HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
-
 @Injectable()
 export class TransformerService {
+
 
 	transformers: Observable<Array<Transformer>>;
 	vehicleTypes: Observable<Array<VehicleTypes>>;
@@ -30,11 +29,21 @@ export class TransformerService {
 		this.vehicleTypes = store.select('vehicleTypes');
 	}
 
+	private headerOptions = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
+
 	getTransformers() {
 		return this.http.get(`${BASE_URL}/transformers`)
 			.map(res => res.json())
 			.map(payload => ({ type: GET_TRANSFORMERS, payload }))
 			.subscribe(action => this.store.dispatch(action));
+	}
+
+	getTransformer(id) {
+		return this.http.get(`${BASE_URL}/transformers/${id}`)
+			.map(res => (<Response>res).json())
+			.catch((err: Response) => {
+				return Observable.throw(err.json());
+			});
 	}
 
 	getVehicleTypes() {
@@ -45,7 +54,7 @@ export class TransformerService {
 	}
 
 	addTransformer(transformer: Transformer) {
-		this.http.post(`${BASE_URL}/transformers`, JSON.stringify(transformer))
+		this.http.post(`${BASE_URL}/transformers`, JSON.stringify(transformer), this.headerOptions)
 			.map(res => res.json())
 			.map(payload => ({ type: ADD_TRANSFORMER, payload }))
 			.subscribe(action => this.store.dispatch(action));

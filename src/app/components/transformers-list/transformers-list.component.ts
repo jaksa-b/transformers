@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { DataSource } from '@angular/cdk';
 import { Store } from '@ngrx/store';
+import { FormControl } from '@angular/forms';
 import { Transformer } from './../../models/transformer';
 import { TransformerService } from "./../../services";
 import { State } from './../../reducers/transformers';
@@ -23,18 +24,25 @@ export class TransformersListComponent implements OnInit {
 
 	transformers: Observable<Array<Transformer>>;
 	query = '';
+	filteredItems = [];
+	term = new FormControl();
 
 	constructor(
 		private store: Store<State>,
 		private transformerService: TransformerService,
 	) {
 		this.transformers = transformerService.transformers;
+		transformerService.transformers.subscribe(data => {
+			data.map(item => {
+				this.filteredItems.push(item)
+			})
+		})
 	}
 
 	ngOnInit() { }
 
-	selectTransformer( transformer: Transformer) {
-		this.store.dispatch({ type: SELECT_TRANSFORMER, payload: transformer})
+	selectTransformer(transformer: Transformer) {
+		this.store.dispatch({ type: SELECT_TRANSFORMER, payload: transformer })
 	}
 
 	search(query: string) {

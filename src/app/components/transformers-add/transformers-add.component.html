@@ -1,6 +1,7 @@
 <md-card>
 	<form [formGroup]="form" novalidate>
-		<h2>Add new transformer</h2>
+		<h2 *ngIf="!edit">Add new transformer</h2>
+		<h2 *ngIf="edit">Edit transformer</h2>
 		<md-input-container>
 			<input type="text" mdInput name="name" placeholder="Name*" formControlName="name">
 		</md-input-container>
@@ -24,6 +25,7 @@
 				{{ item }}
 			</md-option>
 		</md-select>
-		<button md-raised-button color="primary" (click)="add()" [disabled]="!this.form.valid">Add</button>
+		<button md-raised-button color="primary" (click)="add()" *ngIf="!edit" [disabled]="!this.form.valid">Add</button>
+		<button md-raised-button color="primary" (click)="save()" *ngIf="edit" [disabled]="!this.form.valid">Save</button>
 	</form>
 </md-card>

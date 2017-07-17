@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -15,6 +15,10 @@ import { State } from './../../reducers/transformers';
 	styleUrls: ['./transformers-add.component.scss']
 })
 export class TransformersAddComponent implements OnInit {
+	@Input() edit;
+	@Input() id;
+	@Input() transformer;
+
 	form: FormGroup;
 	vehicleTypes: Observable<Array<VehicleTypes>>;
 	groupsFormated = {};
@@ -69,6 +73,7 @@ export class TransformersAddComponent implements OnInit {
 
 	ngOnInit() {
 		this.form = this.fb.group({
+			id: [''],
 			name: ['', Validators.required],
 			vehicleGroup: ['', Validators.required],
 			vehicleType: ['', Validators.required],
@@ -76,6 +81,22 @@ export class TransformersAddComponent implements OnInit {
 			gear: [''],
 			status: ['', Validators.required]
 		})
+
+		if (this.edit) {
+			setTimeout(() => {
+				console.log("in", this.transformer)
+				const transformer = {
+					id: this.id,
+					name: this.transformer.name,
+					vehicleGroup: this.transformer.vehicleGroup,
+					vehicleType: this.transformer.vehicleType,
+					vehicleModel: this.transformer.vehicleModel,
+					gear: this.transformer.gear,
+					status: this.transformer.status
+				}
+				this.form.setValue(transformer, { onlySelf: true })
+			}, 2000);
+		}
 	}
 
 	onGroupChange() {
@@ -94,6 +115,14 @@ export class TransformersAddComponent implements OnInit {
 		console.log(this.form.value)
 		this.toasterService.pop('success', 'Transformer added');
 		this.transformerService.addTransformer(this.form.value);
+		this.router.navigate(['/']);
+	}
+
+	save() {
+		this.form.controls['id'].setValue(this.id);
+		console.log(this.form.value)
+		// this.toasterService.pop('success', 'Transformer saved');
+		this.transformerService.updateTransformer(this.form.value);
 		this.router.navigate(['/']);
 	}
 
